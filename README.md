@@ -100,24 +100,25 @@ Sample playbook:
         
 ====
 
-```Roles```
+##### Roles
 Roles are like a bunch of files altogether, structured to maintain robust for a module (similar to modules)
 It consists of vars, default, tasks etc.
 
 we can publish the roles in ansible collections and we can utilize from public roles as well.
 Roles will execute on target nodes (it ssh into target instances and execute the requirements)
 
-```collections```
+##### collections
 Collections are similar to modules, but talks with third party API's
 for eg: create an instance on AWS, then collections will help to create an instance. we need to install collections on local machine and execute the requiement.
 
 Collections will execute on localhost and talks with APIs to create services on Cloud etc.
 
-```vault```
+##### vault
 Ansible will have bydefault vault, which is capable of encyrpt and decrypt the sensitive files.
 
 create a vault.pass file with your password and use it for encrypt the senstive files. 
 for eg: `ansible-vault create group_vars/all/password.yaml --vault-password-file vault.pass`
+
 enter you variables as key value pairs and pass this vault.pass to decrypt them while exeuting your require command
 for eg - `ansible-playbook ec2.yaml --vault-password-file vault.pass`
 

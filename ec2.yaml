@@ -1,0 +1,22 @@
+---
+- hosts: localhost
+  connection: local
+  tasks:
+
+  - name: start an instance with a public IP address4
+    #vars:#
+    #  instance : t2.micr#o
+    amazon.aws.ec2_instance:
+      name: "public-compute-instance"
+      # key_name: "prod-ssh-key"
+      # vpc_subnet_id: subnet-5ca1ab1e
+      instance_type: t2.micro
+      security_group: default
+      region: ap-south-1
+      aws_access_key: "{{ my_access }}"
+      aws_secret_key: "{{ my_secret }}"
+      network:
+        assign_public_ip: false
+      image_id: ami-0e1d06225679bc1c5
+      tags:
+        Environment: Testing
