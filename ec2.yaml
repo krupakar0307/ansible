@@ -3,12 +3,12 @@
   connection: local
   tasks:
 
-  - name: start an instance with a public IP address4
+  - name: "ec2"
     #vars:#
     #  instance : t2.micr#o
     amazon.aws.ec2_instance:
-      name: "public-compute-instance"
-      # key_name: "prod-ssh-key"
+      name: "{{ item.name }}"
+      # key_name: "krupakar_reddy"
       # vpc_subnet_id: subnet-5ca1ab1e
       instance_type: t2.micro
       security_group: default
@@ -16,7 +16,11 @@
       aws_access_key: "{{ my_access }}"
       aws_secret_key: "{{ my_secret }}"
       network:
-        assign_public_ip: false
-      image_id: ami-0e1d06225679bc1c5
+        assign_public_ip: true
+      image_id: "{{ item.image }}"
       tags:
         Environment: Testing
+    loop:
+      - { image : "ami-0e1d06225679bc1c5", name: "module-1" }
+      - { image : "ami-0e1d06225679bc1c5", name: "module-2" }
+

@@ -1,0 +1,35 @@
+---
+- hosts: all
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: Install security updates
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: latest
+      loop:
+        - openssl
+        - openssh-client
+      ignore_errors: yes 
+    - name: Check if git is installed
+      ansible.builtin.command: git --version
+      register: output
+      ignore_errors: yes    
+    - ansible.builtin.debug:
+        var: output
+    - name: Install openssl
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - openssh-client
+        - openssl
+        - git
+      # when: output.failed
+    - name: Install docker
+      ansible.builtin.command: sudo service nginx start
+        # name: nginx
+        # state: present
+      # when: output.failed
+        

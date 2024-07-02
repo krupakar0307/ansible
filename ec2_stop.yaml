@@ -1,0 +1,16 @@
+---
+- hosts: localhost
+  # become: true
+  connection: local
+  # gather_facts: true
+
+  tasks:
+    - name : shutting down ec2
+      ec2_instance:
+        state: absent
+        region: ap-south-1
+        # vpc_subnet_id: default
+      # register: output
+        # var: ansible_facts
+      # when:
+      #   ansible_facts['os_family'] == "Debian"

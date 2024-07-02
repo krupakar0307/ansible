@@ -1,0 +1,13 @@
+---
+- hosts: localhost
+  connection: local
+
+  tasks:
+   - name: Launch an EC2 instance in a specific subnet
+     ec2_instance:
+      name: first-instance
+      type: t2.micro
+      ami: ami-01376101673c89611
+      # key_pair: my-keypair
+      # subnet: subnet-870717cd
+    #  register: my_instance 
