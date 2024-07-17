@@ -1,0 +1,20 @@
+---
+- name: Enforce s3 bucket versioning on AWS account
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: List S3 buckets in AWS account
+      amazon.aws.s3_bucket_info:
+      # aws_access_key: "{{ ec2_access_key_id }}"
+      # aws_secret_key: "{{ ec2_secret_key_id }}" 
+      register: result
+    
+    - debug:
+        var: result
+    
+    # - name: Enable versioning on S3 bucket
+    #   amazon.aws.s3_bucket:
+    #     name: manish234
+    #     versioning: yes
+      loop: "{{ result.buckets }}" 
