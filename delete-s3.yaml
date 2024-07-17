@@ -1,0 +1,18 @@
+---
+- name: fetch s3 buckets
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: fetch s3
+      amazon.aws.s3_bucket_info: 
+      register: result
+    - debug:
+        var: result
+
+    - name: delete buckets
+      amazon.aws.s3_bucket:
+        name: "{{ item.name }}"
+        state: absent
+      loop: "{{ result.buckets }}"
+
